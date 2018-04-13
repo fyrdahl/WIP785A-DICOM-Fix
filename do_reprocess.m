@@ -8,8 +8,20 @@ function do_reprocess(pos,fileID,files,metadata,path,series_number)
     patch_path = fullfile(path,'PATCHED/');
     if ~exist(patch_path,'dir') mkdir(patch_path); end
 
-    first_in_slab = [1 find(diff(abs(pos(1,:)))<0)+1]; % The absolute value is needed for generality, i.e. positive/negative positions
-    slices_per_slab = first_in_slab(2)-1;
+    first_in_slab1 = [1 find(diff(abs(pos(1,:)))<0)+1]; % The absolute value is needed for generality, i.e. positive/negative positions
+    first_in_slab2 = [1 find(diff(abs(pos(2,:)))<0)+1]; % The absolute value is needed for generality, i.e. positive/negative positions
+    first_in_slab3 = [1 find(diff(abs(pos(3,:)))<0)+1]; % The absolute value is needed for generality, i.e. positive/negative positions
+
+    if(numel(first_in_slab1)>1)
+        first_in_slab = first_in_slab1; 
+        slices_per_slab = first_in_slab(2)-1;
+    elseif(numel(first_in_slab2)>1)
+        first_in_slab = first_in_slab1; 
+        slices_per_slab = first_in_slab(2)-1;
+    elseif(numel(first_in_slab2)>1)
+        first_in_slab = first_in_slab1; 
+        slices_per_slab = first_in_slab(2)-1;
+    end
     
     ii = 0; buff = {};
     for ID = fileID
