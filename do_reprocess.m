@@ -1,4 +1,5 @@
 function do_reprocess(pos,fileID,files,metadata,path,series_number)
+<<<<<<< HEAD
 
 % This is all a bit of a hack but the error only seems to occur on
 % the last few frames, so I propose we assume the first set of frames
@@ -26,6 +27,33 @@ end
 
 ii = 0; buff = {};
 if exist('slices_per_slab','var')
+=======
+    
+    % This is all a bit of a hack – but the error only seems to occur on 
+    % the last few frames, so I propose we assume the first set of frames 
+    % are correct and just copy their positions to downstream.
+    
+    fprintf('Patching series %i...',series_number); tic;
+    patch_path = fullfile(path,'PATCHED/');
+    if ~exist(patch_path,'dir') mkdir(patch_path); end
+
+    first_in_slab1 = [1 find(diff(abs(pos(1,:)))<0)+1]; % The absolute value is needed for generality, i.e. positive/negative positions
+    first_in_slab2 = [1 find(diff(abs(pos(2,:)))<0)+1]; % The absolute value is needed for generality, i.e. positive/negative positions
+    first_in_slab3 = [1 find(diff(abs(pos(3,:)))<0)+1]; % The absolute value is needed for generality, i.e. positive/negative positions
+
+    if(numel(first_in_slab1)>1)
+        first_in_slab = first_in_slab1; 
+        slices_per_slab = first_in_slab(2)-1;
+    elseif(numel(first_in_slab2)>1)
+        first_in_slab = first_in_slab1; 
+        slices_per_slab = first_in_slab(2)-1;
+    elseif(numel(first_in_slab2)>1)
+        first_in_slab = first_in_slab1; 
+        slices_per_slab = first_in_slab(2)-1;
+    end
+    
+    ii = 0; buff = {};
+>>>>>>> bf6ba6ab6cd342fc58e9fc300a7621a0079e471d
     for ID = fileID
         ii = ii + 1;
         IM = dicomread(fullfile(path,files(ID).name));
@@ -49,8 +77,13 @@ if exist('slices_per_slab','var')
         dicomwrite(IM, fullfile(patch_path,files(ID).name), metadata{ID},...
             'CreateMode', 'copy', 'WritePrivate', 'true');
     end
+<<<<<<< HEAD
 end
 fprintf('Done!\n');
 fprintf('Patched %i files in %.0f seconds!\n',ii,toc);
 
+=======
+    fprintf('Done!\n');
+    fprintf('Patched %i files in %.0f seconds!\n',ii,toc);
+>>>>>>> bf6ba6ab6cd342fc58e9fc300a7621a0079e471d
 end
