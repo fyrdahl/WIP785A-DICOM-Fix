@@ -4,4 +4,4 @@ Batch tool to correct image positions in the DICOM-tags for 4D Flow data from WI
 Known issues:
 * Lacks recursive folder search
 
-Thanks for Frederik Testud, PhD for helpful suggestions
+Thanks for Frederik Testud, PhD for helpful suggestions and code.
