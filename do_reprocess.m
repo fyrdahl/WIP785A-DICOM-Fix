@@ -1,5 +1,4 @@
 function do_reprocess(pos,fileID,files,metadata,path,series_number)
-<<<<<<< HEAD
 
 % This is all a bit of a hack but the error only seems to occur on
 % the last few frames, so I propose we assume the first set of frames
@@ -27,7 +26,6 @@ end
 
 ii = 0; buff = {};
 if exist('slices_per_slab','var')
-=======
     
     % This is all a bit of a hack – but the error only seems to occur on 
     % the last few frames, so I propose we assume the first set of frames 
@@ -53,7 +51,6 @@ if exist('slices_per_slab','var')
     end
     
     ii = 0; buff = {};
->>>>>>> bf6ba6ab6cd342fc58e9fc300a7621a0079e471d
     for ID = fileID
         ii = ii + 1;
         IM = dicomread(fullfile(path,files(ID).name));
@@ -77,13 +74,7 @@ if exist('slices_per_slab','var')
         dicomwrite(IM, fullfile(patch_path,files(ID).name), metadata{ID},...
             'CreateMode', 'copy', 'WritePrivate', 'true');
     end
-<<<<<<< HEAD
 end
 fprintf('Done!\n');
 fprintf('Patched %i files in %.0f seconds!\n',ii,toc);
-
-=======
-    fprintf('Done!\n');
-    fprintf('Patched %i files in %.0f seconds!\n',ii,toc);
->>>>>>> bf6ba6ab6cd342fc58e9fc300a7621a0079e471d
 end
